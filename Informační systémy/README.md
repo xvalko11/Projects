@@ -2,7 +2,7 @@
 [Odkaz](https://kralovicvalkoiis.herokuapp.com)
 ## Popis varianty:
 Úkolem zadání je vytvořit informační systém pro tvorbu událostí a správu účastníků konferencí obsahující prezentace vybraných přednášejících. Každá konference má nějaké označení, pomocí kterého ji její návštěvníci budou moci vhodně odlišit a další vhodné atributy (popis, žánr/oblast zájmu, místo, apod.). Konference se koná v nějaký časový interval, účast stojí nějakou cenu a má nějakou kapacitu návštěvníků. Dále obsahuje libovolný počet místností, v kterých vystoupí dle stanoveného rozpisu přednášející přijatých prezentací. Každá prezentace je charakterizována popisem (název, přednášející, popis, případně tagy, fotka/logo/poster apod...) a má přesně vymezený čas a místnost na konferenci. Uživatelé budou moci informační systém použít jak pro vkládání a správu konferencí, místností, tak pro podávání a schvalování prezentací a rezervaci/nákup vstupenek na konference - a to následujícím způsobem:
-### administrátor\
+### administrátor
 
 - spravuje uživatele
 
