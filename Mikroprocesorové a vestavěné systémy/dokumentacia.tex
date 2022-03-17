@@ -1,0 +1,72 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[left=2cm, top=3cm, text={17cm, 24cm}]{geometry}
+\usepackage{graphicx}
+\usepackage[slovak]{babel}
+\usepackage{times}
+\usepackage[unicode]{hyperref}
+\usepackage{bookmark}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\begin{document}
+
+\thispagestyle{empty}
+\begin{center}
+\begin{figure}[h]
+\centering
+\scalebox{0.9}{\includegraphics{fit banner.png}}
+\end{figure}
+\vspace{\stretch{0.382}}
+\LARGE Dokumentácia projektu z predmetu IMP\\
+\LARGE \textbf{Hra HAD}\\
+\LARGE ARM-FITkit3\\
+\vspace{\stretch{0.618}}
+\Large \hfill Marek Valko (xvalko11)\\
+\pagebreak
+\end{center}
+
+\tableofcontents
+\pagebreak
+
+\section{Úvod do problematiky}
+\subsection{O hre HAD}
+Had (červ) je bežný názov pre 2D hry vytvorené na základe jednoduchého hern0ho designu s obmezenou hernou plochou, v rámci ktorej sa had pohybuje. Herné skóre rastie spoločne s predlužujúcou se dĺžkou hada na základe zjedenej potravy nachádzajúcej sa vo vnútri hernej plochy. Hadia hra končí v momente nárazu do prekážky - hlavou do vlastného tela hada, do okraja hernej plochy prípadne iného hada.
+
+Herný design hry had sa datuje desiatky rokov naspäť, do novembra 1976, kedy Gremlin Industries predstavili arkádovú videohru Blockade. O rok neskôr (1977), svetlo sveta uzreli 2 nové hry inšpirované hrou Blockade, vytvorené spoločnosťou Atari, určené pre hernú konzolu Atari VCS. Prvá verzia hry Had určená pro osobní počítače (TRS-80, Commodore PET, Apple II) bola vydaná v roku 1978 Petrm Trefonasem, nasledovaná ďalšími verziami pre ďalšie počítače tej doby. Na operačnom systéme Windows je možné hrať hru Had od roku 1992.
+
+\subsection{Zadanie projektu}
+Zadaním projektu bolo vytvoriť zjednodušenú hru had na platforme \texttt{FITkit3} a maticovom displeji. Had má pevnú dĺžku a po hracej ploche bude len prechádzať a nebude zbierať žiadne ovocie. Zobrazovanie hada na maticovom displeji má byť riešené pomocou tzv. \texttt{multiplexingu}. Hra sa ovláda pomocou štyroch tlačidiel, ktorými je možné ovládať smer akým sa had pohybuje.
+
+
+
+\subsection{Technické detaily}
+Program je určený na platformu \texttt{FITkit3} a rozširujúci modul \texttt{Maticový displej}. Program bol vytvorený s využitím vývojového prostredia \texttt{Kinetis Design Studio (KDS)}. 
+Implementačným jazykom je \textbf{jazyk~C}.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.65]{fitkit.png}
+\caption{FITkit3 s pripojeným LED maticovým displejom}
+\end{center}
+\end{figure}
+\section{Implementácia}
+\subsection{Programová časť}
+Samotný had je reprezentovaný poľom štruktúr \texttt{snake\_cell\_position}, ktoré obsahuje súradnice x,y jednotlivých buniek hada. Ako prvá je zavolaná funkcia \texttt{SystemConfig}, ktorá sa stará o konfiguráciu potrebných súčastí ako napríklad PTA pinov, ktoré slúžia na výber stĺpcov a riadkov na displeji alebo PTE pinov, ktoré sú potrebné na ovládanie pomocou tlačítok. Ďalej sa zavolá funkcia \texttt{PIT\_init} slúžiaca na konfiguráciu PIT časovača. Na počiatočnú inicializáciu hada slúži funkcia \texttt{snake\_init}. Hlavnou riadiacou sučasťou programu sú dva handlery \texttt{PIT0\_IRQHandler} a \texttt{PORTE\_IRQHandler}. Prvý z nich, pre časovač PIT, zaisťuje prerušenia pri pohybe hada a druhý handler pre port E sa stará o stláčanie tlačídiel a zmenu smeru hada nastavením premennej \texttt{direction}. O samotý pohyb hada po hracej ploche sa stará funkcia \texttt{move}, ktorá na základe premennej \texttt{direction} zaisťuje pohyb hada v danom smere. Na výber stĺpca a riadka na maticovom displeji slúžia funkcie \texttt{column\_select} a \texttt{row\_select}.
+
+\subsection{Prevzaté funkcie}
+Pri implementácií boli funkcie \texttt{SystemConfig}, \texttt{column\_select} a spomaľovacia funkcia \texttt{delay} prevzaté z demonštračného progamu k tomuto projektu.
+
+\section{Testovanie}
+Testovanie prebiehalo manuálne stláčaním tlačítiek na platforme a sledovaním LED maticového displeja. 
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.05]{had.jpg}
+\caption{Testovanie pohybu hada po hracej ploche}
+\end{center}
+\end{figure}
+\pagebreak
+\section{Zoznam použitej literatúry}
+\verb|[1]| Růžička Richard: Čítače a časovače v mikrokontrolérech, Text k prednáškam kurzu Mikroprocesorové a vestavěné systémy na FIT VUT v Brně. [online], 20. september 2021,[vid. 2021-12-14].  \\\\
+\verb|[2]| Růžička Richard: Jádro mikrokontroléru
+v mikrokontrolérech, Text k prednáškam kurzu Mikroprocesorové a vestavěné systémy na FIT VUT v Brně. [online], 20. september 2021,[vid. 2021-12-12].
+\end{document}
